@@ -2,6 +2,7 @@ package com.lonfyuri.springbootmongodb.config;
 
 import com.lonfyuri.springbootmongodb.domain.Post;
 import com.lonfyuri.springbootmongodb.domain.User;
+import com.lonfyuri.springbootmongodb.dto.AuthorDTO;
 import com.lonfyuri.springbootmongodb.repository.PostRepository;
 import com.lonfyuri.springbootmongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TimeZone;
 
 @Configuration
@@ -23,7 +25,7 @@ public class Instantiation implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         userRepository.deleteAll();
@@ -35,9 +37,11 @@ public class Instantiation implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
-        Post post1 = new Post(null, sdf.parse("31/07/2024 19:32:42"), "Partiu Viagem", "To indo Familia", bob);
-        Post post2 = new Post(null, sdf.parse("31/07/2024 19:34:42"), "Joguei RPG", "Foi Pessimo", alex);
+        Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 
-        postRepository.saveAll(Arrays.asList(post1, post2));
+       postRepository.saveAll(Arrays.asList(post1, post2));
+       
+
     }
 }
