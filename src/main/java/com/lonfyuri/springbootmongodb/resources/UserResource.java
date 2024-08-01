@@ -1,5 +1,6 @@
 package com.lonfyuri.springbootmongodb.resources;
 
+import com.lonfyuri.springbootmongodb.domain.Post;
 import com.lonfyuri.springbootmongodb.domain.User;
 import com.lonfyuri.springbootmongodb.dto.UserDTO;
 import com.lonfyuri.springbootmongodb.services.UserService;
@@ -53,4 +54,11 @@ public class UserResource {
         userService.update(user);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPost(@PathVariable String id) {
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
+    }
+
 }
